@@ -1,0 +1,56 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+// global variable, any function can access this value
+const inflationRate = 2.5
+
+func main() {
+	var investmentAmount float64
+	expectedReturnRate := 5.5
+	var years float64
+
+	// fmt.Print("Investment Amount: ")
+	outputText("Investment Amount: ")
+	fmt.Scan(&investmentAmount)
+
+	// fmt.Print("Expected Return Rate: ")
+	outputText("Expected Return Rate: ")
+	fmt.Scan(&expectedReturnRate)
+
+	// fmt.Print("Years: ")
+	outputText("Years: ")
+	fmt.Scan(&years)
+
+	futureValue, futureRealValue := calculateFutureValues(investmentAmount, expectedReturnRate, years)
+	//futureValue := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	//futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
+
+	// fmt.Println("Future Value:", futureValue)
+	// fmt.Println("Future Value(Adjusted for Inflation):", futureRealValue)
+
+	// print upto one decimal value
+	// fmt.Printf("Future Value: %.1f\nFuture Value(Adjusted for Inflation): %.1f \n", futureValue, futureRealValue)
+
+	// if we want to format, change and then store text in a variable and return string use Sprint()
+	//formattedFV := fmt.Sprintf("Future Value: %.1f\n", futureValue)
+	//formattedRFV := fmt.Sprintf("Future Value(Adjusted for Inflation): %.1f \n", futureRealValue)
+	//fmt.Print(formattedFV, formattedRFV)
+
+	// multiline strings using Backticks(``)
+	fmt.Printf(`Future Value: %.1f
+		Future Value(Adjusted for Inflation): %.1f`, futureValue, futureRealValue)
+}
+
+func outputText(text string) {
+	fmt.Print(text)
+}
+
+func calculateFutureValues(investmentAmount, expectedReturnRate, years float64) (float64, float64) {
+	fv := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	rfv := fv / math.Pow(1+inflationRate/100, years)
+	return fv, rfv
+}
